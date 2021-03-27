@@ -14,27 +14,30 @@ public class fibonacciProcessor {
 
     private Long processFibonacciSeries(int inputNumber)
 	{
-		if(inputNumber > 1)
+		if(!_cache.containsKey(inputNumber))
 		{
-			var n1= inputNumber -1;
-			if(!_cache.containsKey(n1))
-			{
-				_cache.put(n1, processFibonacciSeries(n1));
-			}			
-			var n2= inputNumber -2;
-			if(!_cache.containsKey(n2))
-			{
-				_cache.put(n2, processFibonacciSeries(n2));
+			if(inputNumber > 1)
+			{				
+				var n1= inputNumber -1;			
+				if(!_cache.containsKey(n1))
+				{
+					_cache.put(n1, processFibonacciSeries(n1));
+				}			
+				var n2= inputNumber -2;
+				if(!_cache.containsKey(n2))
+				{
+					_cache.put(n2, processFibonacciSeries(n2));
+				}
+				_cache.put(inputNumber,_cache.get(n1)+_cache.get(n2));
 			}
-			_cache.put(inputNumber,_cache.get(n1)+_cache.get(n2));          
-		}
-		else
-		{
-			if(!_cache.containsKey(inputNumber))
+			else
 			{
-				_cache.put(inputNumber,(long)inputNumber);				
+				if(!_cache.containsKey(inputNumber))
+				{
+					_cache.put(inputNumber,(long)inputNumber);				
 
-			}		
+				}		
+			}
 		}
 		return _cache.get(inputNumber);
 	}
